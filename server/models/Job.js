@@ -5,9 +5,9 @@ const jobSchema = new mongoose.Schema({
   company_name: { type: String },                               // Name of the company
   title: { type: String, required: true },                      // Job title
   description: { type: String, required: true },                // Job description
-  max_salary: { type: Number },                                 // Maximum salary offered
-  min_salary: { type: Number },                                 // Minimum salary offered
-  med_salary: { type: Number },                                 // Median salary (if available)
+  max_salary: { type: Number, default: 0 },                                 // Maximum salary offered
+  min_salary: { type: Number, default: 0 },                                 // Minimum salary offered
+  med_salary: { type: Number, default: 0 },                                 // Median salary (if available)
   pay_period: { type: String, enum: ['HOURLY', 'YEARLY'] },     // Pay period (Hourly/Yearly)
   location: { type: String, required: true },                   // Job location
   company_id: { type: Number },                                 // Company ID
@@ -29,9 +29,11 @@ const jobSchema = new mongoose.Schema({
   work_type: { type: String, enum: ['FULL_TIME', 'PART_TIME'] },// Type of work (Full-time/Part-time)
   currency: { type: String, default: 'USD' },                   // Currency of the salary
   compensation_type: { type: String },                          // Type of compensation (e.g., base salary)
-  normalized_salary: { type: Number },                          // Normalized salary figure
+  normalized_salary: { type: Number, default: 0},                          // Normalized salary figure
   zip_code: { type: String },                                   // Job location's ZIP code
   fips: { type: String },                                       // FIPS code for the location
+  ai_trust_index: { type: Number, default: 0 },                             // AI trust index
+  user_trust_index: { type: Number, default: 0},                           // User trust index
 }, {
   timestamps: true
 });
