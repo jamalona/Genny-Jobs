@@ -9,6 +9,6 @@ module.exports = (req, res, next) => {
     req.admin = decoded;
     next();
   } catch (err) {
-    res.status(400).send('Invalid token');
+    res.status(400).send('Invalid token. '+err.message);
   }
 };

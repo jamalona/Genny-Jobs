@@ -1,8 +1,10 @@
 import React from 'react';
- 
+import PropTypes from 'prop-types';
 
 
-const ExploreSection = ({filtersObj, setFiltersObj }) => { 
+
+
+const ExploreSection = ({setFiltersObj }) => { 
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -83,4 +85,9 @@ const ExploreSection = ({filtersObj, setFiltersObj }) => {
     </div>
   );
 }
+
+ExploreSection.propTypes = {
+  setFiltersObj: PropTypes.func.isRequired,
+};
+
 export default ExploreSection;

@@ -3,6 +3,9 @@ import { useState } from 'react';
 //import { Link } from 'react-router-dom';
 import './JobCard.css';
 import { downVote, upVote } from '../services/jobService';
+import PropTypes from 'prop-types';
+
+
 
 const JobCard = ({ job })=>{
   const [voteCount, setVoteCount] = useState(job?.user_trust_index || 0);
@@ -73,5 +76,24 @@ const JobCard = ({ job })=>{
   )
 
 }
+
+// Job card validation
+
+JobCard.propTypes = {
+  job: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    company_name: PropTypes.string.isRequired,
+    ai_trust_index: PropTypes.number.isRequired,
+    user_trust_index: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    work_type: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    formatted_experience_level: PropTypes.string,
+    application_url: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+
 
 export default JobCard;

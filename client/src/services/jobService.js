@@ -4,7 +4,7 @@ const API_URL = 'http://localhost:5000/api/jobs';
 
 export const getJobs = (limit = 10, offset = 0 ,filters) => {
   const nonEmptyFilters = Object.fromEntries(
-    Object.entries(filters).filter(([_, value]) => value !== '')
+    Object.entries(filters).filter(([value]) => value !== '')
   );
   return axios.get(API_URL, {
     params: {
@@ -18,23 +18,23 @@ export const getJobs = (limit = 10, offset = 0 ,filters) => {
 };
 export const getJobById = (id) => axios.get(`${API_URL}/${id}`);
 
-export const upVote = (job_id) => {
-  axios.post(`${API_URL}/${job_id}/upvote`)
-      .then((response) => {
-        return true;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+export const upVote = async (job_id) => {
+  try {
+    await axios.post(`${API_URL}/${job_id}/upvote`);
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
 };
 
-export const downVote = (job_id) => {
+export const downVote = async(job_id) => {
   //console.log(job_id);
-  axios.post(`${API_URL}/${job_id}/downvote`)
-      .then((response) => {
-        return true;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  try {
+    await axios.post(`${API_URL}/${job_id}/downvote`);
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
 };

@@ -3,6 +3,7 @@ import ReactPaginate from 'react-paginate';
 import { getJobs } from '../services/jobService';
 import JobCard from './JobCard';
 import  './JobList.css';
+import PropTypes from 'prop-types';
 
 const JobList = ({filtersObj}) => {
   const [jobs, setJobs] = useState([]);
@@ -26,7 +27,7 @@ const JobList = ({filtersObj}) => {
     <div>
       {/* Job Postings */}
       <div className="job-postings">
-        <p className="job-count">We've found <strong>{totalJobs}</strong> job postings</p>
+        <p className="job-count">We have found <strong>{totalJobs}</strong> job postings</p>
       </div>
 
       {jobs.map(job => (
@@ -34,11 +35,11 @@ const JobList = ({filtersObj}) => {
       ))}
       <div>
         <ReactPaginate
-          previousLabel={'previous'}
-          nextLabel={'next'}
+          previousLabel={"previous"}
+          nextLabel={"next"}
           breakLabel={'...'}
           breakClassName={'break-me'}
-          pageCount={Math.ceil(totalJobs / limit)} // Calculate page count based on total jobs
+          pageCount={Math.ceil(totalJobs / limit)} 
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
           onPageChange={handlePageChange}
@@ -50,5 +51,10 @@ const JobList = ({filtersObj}) => {
     </div>
   );
 };
+
+JobList.propTypes = {
+  filtersObj: PropTypes.object.isRequired,
+};
+
 
 export default JobList;

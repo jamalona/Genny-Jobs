@@ -26,7 +26,7 @@ function Main() {
       {/* Navbar */}
       <Navbar />
       {/* Main Content */}
-      <ExploreSection filtersObj={filtersObj} setFiltersObj={handleDataChange} />
+      <ExploreSection  setFiltersObj={handleDataChange} />
       <JobListingPage  filtersObj={filtersObj}  />
       <Routes>
         {/* <Route path="/" element={} /> */}
