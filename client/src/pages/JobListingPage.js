@@ -1,9 +1,9 @@
 import React from 'react';
 import JobList from '../components/JobList';
 
-const JobListingPage = () => (
+const JobListingPage = ({filtersObj}) => (
   <div>
-    <JobList />
+    <JobList filtersObj={filtersObj} />
   </div>
 );
 

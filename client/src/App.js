@@ -5,7 +5,7 @@ import Main from './pages/Main';
 const App = () => (
   <Router>
     <Routes>
-      <Route path="/" element={<Main />} />
+      <Route path="*" element={<Main />} />
     </Routes>
   </Router>
 );

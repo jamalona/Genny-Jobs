@@ -5,14 +5,17 @@ const Job = require('../models/Job');
 exports.getAllJobs = async (req, res) => {
   try {
     // Convert limit and offset to integers
-    const limit = parseInt(req.query.limit) || 5;
-    const offset = parseInt(req.query.offset) || 0;
+    let { limit,offset ,...filters } = req.query;
+    limit = limit || 5;
+    offset = offset || 0;
 
     // Fetch the total number of jobs
     const totalJobs = await Job.countDocuments();
 
     // Fetch the jobs with pagination
-    const jobs = await Job.find()
+    let Fixfilters = buildFiltersObject(filters);
+    //console.log(Fixfilters);
+    const jobs = await Job.find(Fixfilters)
       .skip(offset)
       .limit(limit);
 
@@ -113,3 +116,73 @@ exports.downVote =  async (req, res) => {
     return res.status(500).send({ message: 'Failed to update job', error: error.message });
   }
 };
+
+
+function buildFiltersObject(filters) {
+  // Build the filters object dynamically
+  let queryFilters = {};
+
+  // Handle 'datePosted' filter
+  if (filters.datePosted) {
+    const now = new Date();
+    switch (filters.datePosted) {
+      case 'last24hours':
+        queryFilters.listed_time = { $gte: now.setDate(now.getDate() - 1) };
+        break;
+      case 'last7days':
+        queryFilters.listed_time = { $gte: now.setDate(now.getDate() - 7) };
+        break;
+      case 'thismonth':
+        queryFilters.listed_time = { $gte: new Date(now.getFullYear(), now.getMonth(), 1).getTime() };
+        break;
+      case 'anytime':
+        // Do nothing as anytime means no date filter
+        break;
+    }
+  }
+
+  // Handle 'salary' filter
+  if (filters.salary) {
+    switch (filters.salary) {
+      case '<20k':
+        queryFilters.normalized_salary = { $lte: 20000 };
+        break;
+      case '20k-60k':
+        queryFilters.normalized_salary = { $gte: 20000, $lte: 60000 };
+        break;
+      case '60k-100k':
+        queryFilters.normalized_salary = { $gte: 60000, $lte: 100000 };
+        break;
+      case '100k+':
+        queryFilters.normalized_salary = { $gte: 100000 };
+        break;
+    }
+  }
+
+  // Handle 'jobType' filter
+  if (filters.jobType) {
+    queryFilters.work_type = filters.jobType.toUpperCase(); // Assuming work_type uses upper case for types
+  }
+
+  // Handle 'experienceLevel' filter
+  if (filters.experienceLevel) {
+    queryFilters.formatted_experience_level = filters.experienceLevel;
+  }
+
+  // Handle 'workType' filter (On-site, Remote, Hybrid)
+  if (filters.workType) {
+    switch (filters.workType) {
+      case 'on_site':
+        queryFilters.remote_allowed = false;
+        break;
+      case 'remote':
+        queryFilters.remote_allowed = true;
+        break;
+      case 'hybrid':
+        // Handle hybrid work type if applicable
+        queryFilters.remote_allowed = 'hybrid';
+        break;
+    }
+  }
+  return queryFilters;
+}

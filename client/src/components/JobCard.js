@@ -61,7 +61,7 @@ const JobCard = ({ job })=>{
           <div className="job-details">
             <span className="job-type">&#129520; {job.work_type}</span>
             <span className="job-location">&#127970; {job.location}</span>
-            <span className="experience-level">&#129351; {job?.formatted_experience_level || 'Senior'}</span>
+            <span className="experience-level">&#129351; {job?.formatted_experience_level || 'Unknown'}</span>
           </div>
           <div className='job-actions'>
             <a href="{job.application_url}" className="btn btn-green apply-link">Apply</a>
