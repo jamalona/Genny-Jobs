@@ -8,7 +8,6 @@ router.post('/', jobController.createJob);         // POST: Create a new job (Ad
 router.put('/:id', jobController.updateJob);       // PUT: Update job by ID (Admin only)
 router.delete('/:id', jobController.deleteJob);    // DELETE: Remove job by ID (Admin only)
 
-router.post('/:id/downvote', jobController.downVote);
-router.post('/:id/upvote', jobController.upVote);
+router.post('/:id/:voteType', jobController.vote);
 
 module.exports = router;

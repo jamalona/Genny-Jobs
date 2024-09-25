@@ -10,10 +10,10 @@ body {
   background-color: #f4f4f9;
 }
 
-.job-snap-container {
+.job-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 40px;
 }
 
 .navbar {
@@ -81,30 +81,22 @@ body {
 }
 
 .more-categories .btn {
-  background-color: #f0e68c; /* Yellow for Logistics */
+  background-color: #f0e68c;
+  /* Yellow for Logistics */
   margin-right: 10px;
 }
 
 .more-categories .btn:nth-child(2) {
-  background-color: #add8e6; /* Light blue for Customer support */
+  background-color: #add8e6;
+  /* Light blue for Customer support */
 }
 
 .more-categories .btn:nth-child(3) {
-  background-color: #d3a4f6; /* Light purple for Tech */
+  background-color: #d3a4f6;
+  /* Light purple for Tech */
 }
 
-/* Filter Bar */
-.filter-bar {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 20px;
-}
 
-.filter-bar select {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
 
 /* Job Postings */
 .job-count {

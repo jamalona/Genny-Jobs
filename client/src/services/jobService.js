@@ -18,20 +18,9 @@ export const getJobs = (limit = 10, offset = 0 ,filters) => {
 };
 export const getJobById = (id) => axios.get(`${API_URL}/${id}`);
 
-export const upVote = async (job_id) => {
+export const vote = async (job_id, voteType) => {
   try {
-    await axios.post(`${API_URL}/${job_id}/upvote`);
-    return true;
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
-};
-
-export const downVote = async(job_id) => {
-  //console.log(job_id);
-  try {
-    await axios.post(`${API_URL}/${job_id}/downvote`);
+    await axios.post(`${API_URL}/${job_id}/${voteType}`);
     return true;
   } catch (error) {
     console.error(error);

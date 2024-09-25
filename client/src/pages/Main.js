@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 import './Main.css'; // Add corresponding CSS for styling
-import { Routes, Route } from 'react-router-dom';
 import JobListingPage from './JobListingPage';
-import JobDetailPage from './JobDetailPage';
+
 import Navbar from '../components/Navbar';
 import ExploreSection from '../components/ExploreSection';
+
 
 
 function Main() {
@@ -15,6 +15,8 @@ function Main() {
     jobType: '',
     experienceLevel: '',
     workType: '',
+    location: '',
+    search: '',
   });
 
   const handleDataChange = (updatedFilters) => {
@@ -22,17 +24,13 @@ function Main() {
   };
 
   return (
-    <div className="job-snap-container">
-      {/* Navbar */}
-      <Navbar />
-      {/* Main Content */}
-      <ExploreSection  setFiltersObj={handleDataChange} />
-      <JobListingPage  filtersObj={filtersObj}  />
-      <Routes>
-        {/* <Route path="/" element={} /> */}
-        <Route path="/jobs/:id" element={<JobDetailPage />} />
-      </Routes>
-    </div>
+      <div className="job-container">
+        {/* Navbar */}
+        <Navbar />
+        {/* Main Content */}
+        <ExploreSection  setFiltersObj={handleDataChange} />
+        <JobListingPage  filtersObj={filtersObj}  />
+      </div>
   );
 }
 

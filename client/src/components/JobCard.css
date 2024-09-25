@@ -1,4 +1,3 @@
-
 .job-card {
   background-color: white;
   padding: 20px;
@@ -30,11 +29,13 @@
 .job-description {
   margin-bottom: 15px;
 }
+
 .detail-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .job-details {
   display: flex;
   gap: 10px;
@@ -54,4 +55,8 @@
 
 .job-actions {
   margin-left: auto;
+}
+
+.job-card a {
+  text-decoration: none;
 }

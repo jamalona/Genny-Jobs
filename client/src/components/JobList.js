@@ -6,6 +6,7 @@ import  './JobList.css';
 import PropTypes from 'prop-types';
 
 const JobList = ({filtersObj}) => {
+  
   const [jobs, setJobs] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
   //const [limit, setLimit] = useState(6);

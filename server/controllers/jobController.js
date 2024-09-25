@@ -9,12 +9,14 @@ exports.getAllJobs = async (req, res) => {
     limit = limit || 5;
     offset = offset || 0;
 
-    // Fetch the total number of jobs
-    const totalJobs = await Job.countDocuments();
-
-    // Fetch the jobs with pagination
+    //console.log(filters);
     let Fixfilters = buildFiltersObject(filters);
     //console.log(Fixfilters);
+
+    // Fetch the total number of jobs
+    const totalJobs = await Job.countDocuments(Fixfilters);
+    
+    // Fetch the jobs with pagination
     const jobs = await Job.find(Fixfilters)
       .skip(offset)
       .limit(limit);
@@ -72,50 +74,39 @@ exports.deleteJob = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
-exports.upVote =  async (req, res) => {
+
+exports.vote = async (req, res) => {
   const jobId = req.params.id;
+  const voteType = req.params.voteType; // Assume 'voteType' is either 'upvote' or 'downvote'
+
   const job = await Job.findById(jobId);
   if (!job) {
-    return res.status(404).send({ message: 'Job not found' });
+    return res.status(204).send({ message: 'Job not found' });
   }
-  // Check if `user_trust_index` exists, if not, initialize it with 0
+
+  // Initialize `user_trust_index` to 0 if it doesn't exist
   if (job.user_trust_index === undefined) {
     job.user_trust_index = 0;
   }
 
-  // Decrement the `user_trust_index`
-  job.user_trust_index += 1;
+  // Adjust the `user_trust_index` based on the vote type
+  if (voteType === 'upvote') {
+    job.user_trust_index += 1;
+  } else if (voteType === 'downvote') {
+    job.user_trust_index -= 1;
+  } else {
+    return res.status(400).send({ message: 'Invalid vote type' });
+  }
 
   try {
     // Save the updated job document
     await job.save();
-    res.send({ message: 'Upvote successful', userTrustIndex: job.user_trust_index });
+    res.send({ message: `${voteType === 'upvote' ? 'Upvote' : 'Downvote'} successful`, userTrustIndex: job.user_trust_index });
   } catch (error) {
     return res.status(500).send({ message: 'Failed to update job', error: error.message });
   }
 };
-exports.downVote =  async (req, res) => {
-  const jobId = req.params.id;
-  const job = await Job.findById(jobId);
-  if (!job) {
-    return res.status(404).send({ message: 'Job not found' });
-  }
-  // Check if `user_trust_index` exists, if not, initialize it with 0
-  if (job.user_trust_index === undefined) {
-    job.user_trust_index = 0;
-  }
 
-  // Decrement the `user_trust_index`
-  job.user_trust_index -= 1;
-
-  try {
-    // Save the updated job document
-    await job.save();
-    res.send({ message: 'Downvote successful', userTrustIndex: job.user_trust_index });
-  } catch (error) {
-    return res.status(500).send({ message: 'Failed to update job', error: error.message });
-  }
-};
 
 
 function buildFiltersObject(filters) {
@@ -184,5 +175,18 @@ function buildFiltersObject(filters) {
         break;
     }
   }
+
+  // Handle 'search' filter
+  if (filters.search) {
+    queryFilters.$or = [
+      { title: { $regex: '.*' + filters.search + '.*', $options: 'i' } },
+    ];
+  }
+
+  // Handle 'location' filter
+  if (filters.location) {
+    queryFilters.location = { $regex: '.*' + filters.location + '.*', $options: 'i' };
+  }
+
   return queryFilters;
 }
