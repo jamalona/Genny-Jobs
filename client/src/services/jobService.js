@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/jobs';
+const API_URL = 'http://localhost:5001/api/jobs';
 
 export const getJobs = (limit = 10, offset = 0 ,filters) => {
   const nonEmptyFilters = Object.fromEntries(
