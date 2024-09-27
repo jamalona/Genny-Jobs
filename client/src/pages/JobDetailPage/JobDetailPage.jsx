@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getJobById } from '../services/jobService';
+import { getJobById } from '../../services/jobService';
 import './JobDetailPage.css';
 import { Link } from 'react-router-dom';
-import { vote} from '../services/jobService';
+import { vote} from '../../services/jobService';
+import JobDetailHeader from './JobDetailHeader';
+import JobDescription from './JobDescription';
+import JobOverview from './JobOverview';
 
 const JobDetailPage = () => {
   const [voteCount, setVoteCount] = useState(0);
@@ -55,108 +58,22 @@ const JobDetailPage = () => {
 
   return (
     <div id="jobDetailsSection" className="job-details-section">
-
-      
       <div className="job-details-container">
         <h1 className="job-title">{job?.title}</h1>
         <Link to={`/`} >
           <button className="btn btn-red">Back</button>
         </Link>
-          <div className="header">
-            <div className="card">
-              <div className="logo">📊
-                  {/* <img src="logo.png" alt="Company Logo" /> */}
-              </div>
-              <div className="company-info">
-                  <h2>{job?.company_name}</h2>
-                  
-                  <div className="interactive-elements">
-                      <p><i className="fa fa-globe"></i> Website</p>
-                      <p><i className="fa fa-envelope"></i> info@examplecomapny.com</p>
-                      <p><i className="fa fa-facebook"></i> Share on Facebook</p>
-                      <p className="listed-time">Listed on: 
-                        {typeof job?.listed_time !== 'undefined' ? new Date(job?.listed_time).toLocaleDateString() : 'Not specified'}
-
-                      </p>
-                  </div>
-              </div>
-              
-              {job?.job_posting_url && (
-              <div className="apply-button">
-                  <button>Apply for job</button>
-              </div>
-              )}
-
+        <JobDetailHeader job={job}/>
+        
+          <div className="content">
+            <div className="left-column">
+              <JobDescription job={job} desc={desc}/>
+            </div>
+            <div className="right-column">
+              <JobOverview job={job} handleUpvote={handleUpvote} handleDownvote={handleDownvote} voteCount={voteCount} salaryRange={salaryRange} />
             </div>
           </div>
-
-          <div className="content">
-              <div className="left-column">
-                <div className="job-description">
-                    <p dangerouslySetInnerHTML={{ __html: desc }} />
-                </div>
-
-                <div className="job-skills">
-                    <h3>Skills Required</h3>
-                    <p>{job?.skills_desc || 'Not specified'}</p>
-                </div>
-              </div>
-
-              <div className="right-column">
-                <h3>Job overview</h3>
-                <div className="job-detail-card">
-
-                  <div className='job-actions'>
-                    <div className="elegant-vote-container">
-                      <div className="vote-info">AI trust <strong>{job?.ai_trust_index || "3.5/5"}</strong></div>
-                      <div className="vote-controls">
-                        <button className="vote-button elegant-upvote" onClick={()=>handleUpvote(job._id)}>
-                          <span>&#9650;</span>
-                        </button>
-                        <span className="vote-count">{voteCount}</span>
-                        <button className="vote-button elegant-downvote" onClick={()=>handleDownvote(job._id)}>
-                          <span>&#9660;</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <br/>
-
-                  <div className="job-header">
-                    <p className="location"><i className="fa fa-map-marker"></i> {job?.location}</p>
-                    <p className="posted-time">Listed on: 
-                      {typeof job?.listed_time !== 'undefined' ? new Date(job?.listed_time).toLocaleDateString() : 'Not specified'}
-                    </p>
-                    <p className="expiration-date">Expires on: 
-                      {typeof job?.expiry !== 'undefined' ? new Date(job?.expiry).toLocaleDateString() : 'Not specified'}
-                    </p>
-                  </div>
-                  <div className="job-salary">
-                      <h3>Salary</h3>
-                      <p>{salaryRange} </p>
-                      <p>{job?.med_salary > 0 && <p >Median Salary: {job?.med_salary.toLocaleString()} {job?.currency}</p>}</p>
-                  </div>
-                  <div>
-                    <ul>
-                      <li><strong>Experience Level:</strong> </li>
-                      <li><strong>Work Type:</strong> {job?.formatted_work_type || job?.work_type || 'Not specified'}</li>
-                      <li><strong>Remote Allowed:</strong> {job?.remote_allowed ? 'Yes' : 'No'}</li>
-                      <li><strong>Compensation Type:</strong> {job?.compensation_type || 'Not specified'}</li>
-                      <li><strong>ZIP Code:</strong> {job?.zip_code || 'Not specified'}</li>
-                    </ul>
-                  </div>
-                  
-                  {job?.application_url && (
-                    <div className="apply-button">
-                        <a href={job?.application_url} target="_blank" rel="noopener noreferrer" className="apply-button">Apply Now</a>
-                    </div>
-                  )}
-              </div>
-              </div>
-          </div>
-
       </div>
-      
     </div>
   );
 };

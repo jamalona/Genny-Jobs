@@ -1,10 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 import './Main.css'; // Add corresponding CSS for styling
-import JobListingPage from './JobListingPage';
+// import JobListingPage from '../components/JobListingPage';
 
 import Navbar from '../components/Navbar';
 import ExploreSection from '../components/ExploreSection';
+import JobList from '../components/JobList';
 
 
 
@@ -29,7 +30,7 @@ function Main() {
         <Navbar />
         {/* Main Content */}
         <ExploreSection  setFiltersObj={handleDataChange} />
-        <JobListingPage  filtersObj={filtersObj}  />
+        <JobList  filtersObj={filtersObj}  />
       </div>
   );
 }
