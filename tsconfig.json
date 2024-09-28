@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "jsx": "react-jsx",             /* Use React JSX support */
+    "lib": ["dom", "dom.iterable", "esnext"],  /* Include libraries for modern JavaScript and DOM support */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",     /* Use Node.js module resolution */
+    "resolveJsonModule": true       /* Enable importing .json files */
+  }
+}
