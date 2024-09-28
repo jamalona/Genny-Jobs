@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Navbar = () => (
+const Navbar: React.FC = () => (
   <nav className="navbar">
     <div className="logo">Geniune Jobs</div>
     <ul className="nav-links">

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './Main.css'; // Add corresponding CSS for styling
 // import JobListingPage from '../components/JobListingPage';
 
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar.tsx';
 import ExploreSection from '../components/ExploreSection';
 import JobList from '../components/JobList';
 
