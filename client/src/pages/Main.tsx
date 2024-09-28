@@ -8,13 +8,13 @@ import ExploreSection from '../components/ExploreSection.tsx';
 import JobList from '../components/JobList';
 
 interface Filter{
-  datePosted: String;
-  salary: String;
-  jobType: String;
-  experienceLevel: String;
-  workType: String;
-  location: String;
-  search: String;
+  datePosted: string;
+  salary: string;
+  jobType: string;
+  experienceLevel: string;
+  workType: string;
+  location: string;
+  search: string;
 }
 
 function Main() {

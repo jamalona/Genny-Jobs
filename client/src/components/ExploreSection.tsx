@@ -6,8 +6,8 @@ import {FC} from 'react'
 import { Interface } from 'readline';
 
 interface Searchbar {
-  search: String ;
-  location: String
+  search: string ;
+  location: string
 }
 interface Filters {
   datePosted: string;
