@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, FormEvent, MouseEvent } from 'react';
 import PropTypes from 'prop-types';
 import './ExploreSection.css';
 import { useState } from 'react';
@@ -9,15 +9,28 @@ interface Searchbar {
   search: String ;
   location: String
 }
+interface Filters {
+  datePosted: string;
+  salary: string;
+  jobType: string;
+  experienceLevel: string;
+  workType: string;
+  location: string;
+  search: string;
+}
+
+interface ExploreSectionProps {
+  setFiltersObj: (filters: Partial<Filters>) => void; // Accepts a partial update of the Filters object
+}
 // interface ExploreProps {
 //   setFiltersObj:;
 // }
 
 
-const ExploreSection: FC = ({setFiltersObj }) => { 
+const ExploreSection: FC <ExploreSectionProps> = ({setFiltersObj }) => { 
   const [searchbar, setSearchbar] = useState <Searchbar>({ search: '', location: '' });
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     
     setFiltersObj((filtersObj) => ({
@@ -26,7 +39,7 @@ const ExploreSection: FC = ({setFiltersObj }) => {
     }));
   };
 
-  const handleFilterChange = (e) => {
+  const handleFilterChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     if(name !== '' && value !== '') {
       setFiltersObj((filtersObj) => ({
