@@ -2,11 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ExploreSection.css';
 import { useState } from 'react';
+import {FC} from 'react'
+import { Interface } from 'readline';
+
+interface Searchbar {
+  search: String ;
+  location: String
+}
+// interface ExploreProps {
+//   setFiltersObj:;
+// }
 
 
-
-const ExploreSection = ({setFiltersObj }) => { 
-  const [searchbar, setSearchbar] = useState({ search: '', location: '' });
+const ExploreSection: FC = ({setFiltersObj }) => { 
+  const [searchbar, setSearchbar] = useState <Searchbar>({ search: '', location: '' });
 
   const handleSearch = (e) => {
     e.preventDefault();

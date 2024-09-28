@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
+    "allowImportingTsExtensions": true,
     "jsx": "react-jsx",             /* Use React JSX support */
     "lib": ["dom", "dom.iterable", "esnext"],  /* Include libraries for modern JavaScript and DOM support */
     "esModuleInterop": true,

@@ -4,13 +4,21 @@ import './Main.css'; // Add corresponding CSS for styling
 // import JobListingPage from '../components/JobListingPage';
 
 import Navbar from '../components/Navbar.tsx';
-import ExploreSection from '../components/ExploreSection';
+import ExploreSection from '../components/ExploreSection.tsx';
 import JobList from '../components/JobList';
 
-
+interface Filter{
+  datePosted: String;
+  salary: String;
+  jobType: String;
+  experienceLevel: String;
+  workType: String;
+  location: String;
+  search: String;
+}
 
 function Main() {
-  const [filtersObj, setFiltersObj] = useState({
+  const [filtersObj, setFiltersObj] = useState <Filter>({
     datePosted: '',
     salary: '',
     jobType: '',
@@ -20,7 +28,7 @@ function Main() {
     search: '',
   });
 
-  const handleDataChange = (updatedFilters) => {
+  const handleDataChange = (updatedFilters: Filter) => {
     setFiltersObj(updatedFilters); 
   };
 
