@@ -1,13 +1,13 @@
-import React, { ChangeEvent, FormEvent, MouseEvent } from 'react';
-import PropTypes from 'prop-types';
-import './ExploreSection.css';
-import { useState } from 'react';
-import {FC} from 'react'
-import { Interface } from 'readline';
+import React, { ChangeEvent, MouseEvent } from "react";
+import PropTypes from "prop-types";
+import "./ExploreSection.css";
+import { useState } from "react";
+import { FC } from "react";
+// import { Interface } from "readline";
 
 interface Searchbar {
-  search: string ;
-  location: string
+  search: string;
+  location: string;
 }
 interface Filters {
   datePosted: string;
@@ -19,46 +19,57 @@ interface Filters {
   search: string;
 }
 
+interface Filter {
+  datePosted: string;
+  salary: string;
+  jobType: string;
+  experienceLevel: string;
+  workType: string;
+  location: string;
+  search: string;
+}
+
 interface ExploreSectionProps {
-  setFiltersObj: (filters: Partial<Filters>) => void; // Accepts a partial update of the Filters object
+  // handleDataChange: (filters: Partial<Filters>) => void; // Accepts a partial update of the Filters object
+  setFiltersObj: React.Dispatch<React.SetStateAction<Filter>>;
+  filtersObj: Filter;
 }
 // interface ExploreProps {
-//   setFiltersObj:;
+//   handleDataChange:;
 // }
 
+const ExploreSection: FC<ExploreSectionProps> = ({ setFiltersObj, filtersObj }) => {
+  const [searchbar, setSearchbar] = useState<Searchbar>({
+    search: "",
+    location: "",
+  });
 
-const ExploreSection: FC <ExploreSectionProps> = ({setFiltersObj }) => { 
-  const [searchbar, setSearchbar] = useState <Searchbar>({ search: '', location: '' });
+  const handleDataChange = (updatedFilters: Partial<Filter>) => {
+    setFiltersObj((previousFilters) => ({
+      ...previousFilters,
+      ...searchbar
+    }))
+  };
 
   const handleSearch = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    
-    setFiltersObj((filtersObj) => ({
-      ...filtersObj,
-      ...searchbar,
-    }));
-  };
+    handleDataChange(searchbar);
+};
 
   const handleFilterChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
-    if(name !== '' && value !== '') {
-      setFiltersObj((filtersObj) => ({
-        ...filtersObj,
-        ...searchbar,
-        [name]: value,
-      }));
-    }
+      handleDataChange({[name]: value} as Partial<Filter>);
   };
-  
+
   const filtersSelctions = [
     {
       name: "datePosted",
       options: {
         "": "Date posted",
-        "last24hours": "Last 24 hours",
-        "last7days": "Last 7 days",
-        "thismonth": "This month",
-        "anytime": "Anytime",
+        last24hours: "Last 24 hours",
+        last7days: "Last 7 days",
+        thismonth: "This month",
+        anytime: "Anytime",
       },
     },
     {
@@ -75,60 +86,74 @@ const ExploreSection: FC <ExploreSectionProps> = ({setFiltersObj }) => {
       name: "jobType",
       options: {
         "": "Job type",
-        "full_time": "Full-time",
-        "part_time": "Part-time",
-        "contract": "Contract",
-        "internship": "Internship",
-        "temporary": "Temporary",
+        full_time: "Full-time",
+        part_time: "Part-time",
+        contract: "Contract",
+        internship: "Internship",
+        temporary: "Temporary",
       },
     },
     {
       name: "experienceLevel",
       options: {
         "": "Experience level",
-        "entry_level": "Entry Level",
-        "mid_level": "Mid Level",
-        "senior_level": "Senior Level",
-        "director": "Director",
-        "executive": "Executive",
+        entry_level: "Entry Level",
+        mid_level: "Mid Level",
+        senior_level: "Senior Level",
+        director: "Director",
+        executive: "Executive",
       },
     },
     {
       name: "workType",
       options: {
         "": "On-site / Remote",
-        "on_site": "On-site",
-        "remote": "Remote",
-        "hybrid": "Hybrid",
+        on_site: "On-site",
+        remote: "Remote",
+        hybrid: "Hybrid",
       },
     },
   ];
 
   return (
     <div className="explore-section">
-      
       <h1>Explore jobs</h1>
 
       <div className="search-bar">
-        <input id="search" name="search" 
-        value={searchbar.search}
-        onChange={(e) => setSearchbar({ ...searchbar, search: e.target.value })}
-        type="text" placeholder="Looking for? e.g web developer" />
+        <input
+          id="search"
+          name="search"
+          value={searchbar.search}
+          onChange={(e) =>
+            setSearchbar({ ...searchbar, search: e.target.value })
+          }
+          type="text"
+          placeholder="Looking for? e.g web developer"
+        />
 
-        <input id="location" name="location" 
-        value={searchbar.location}
-        onChange={(e) => setSearchbar({ ...searchbar, location: e.target.value })}
-        type="text" placeholder="Enter location e.g Berlin" />
+        <input
+          id="location"
+          name="location"
+          value={searchbar.location}
+          onChange={(e) =>
+            setSearchbar({ ...searchbar, location: e.target.value })
+          }
+          type="text"
+          placeholder="Enter location e.g Berlin"
+        />
 
         <button onClick={handleSearch}>Search</button>
       </div>
-
 
       {/* Filter Bar */}
       <div className="filter-bar">
         <span>Filter by</span>
         {filtersSelctions.map((filter) => (
-          <select key={filter.name} name={filter.name} onChange={handleFilterChange}>
+          <select
+            key={filter.name}
+            name={filter.name}
+            onChange={handleFilterChange}
+          >
             {Object.entries(filter.options).map(([value, label]) => (
               <option key={value} value={value}>
                 {label}
@@ -138,11 +163,10 @@ const ExploreSection: FC <ExploreSectionProps> = ({setFiltersObj }) => {
         ))}
       </div>
 
-      <hr/>
-
+      <hr />
     </div>
   );
-}
+};
 
 ExploreSection.propTypes = {
   setFiltersObj: PropTypes.func.isRequired,
