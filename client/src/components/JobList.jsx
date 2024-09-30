@@ -5,6 +5,8 @@ import JobCard from './JobCard';
 import  './JobList.css';
 import PropTypes from 'prop-types';
 
+
+
 const JobList = ({filtersObj}) => {
   
   const [jobs, setJobs] = useState([]);
