@@ -11,9 +11,9 @@ const JobList = ({filtersObj}) => {
   
   const [jobs, setJobs] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
-  //const [limit, setLimit] = useState(6);
   const limit = 6;
   const [totalJobs, setTotalJobs] = useState(0); // Store the total number of jobs
+  
   useEffect(() => {
     const offset = pageNumber * limit; // calculate offset based on page number and limit
     getJobs(limit, offset, filtersObj).then(response => {

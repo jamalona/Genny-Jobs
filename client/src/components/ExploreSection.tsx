@@ -3,20 +3,10 @@ import PropTypes from "prop-types";
 import "./ExploreSection.css";
 import { useState } from "react";
 import { FC } from "react";
-// import { Interface } from "readline";
 
 interface Searchbar {
   search: string;
   location: string;
-}
-interface Filters {
-  datePosted: string;
-  salary: string;
-  jobType: string;
-  experienceLevel: string;
-  workType: string;
-  location: string;
-  search: string;
 }
 
 interface Filter {
@@ -34,9 +24,6 @@ interface ExploreSectionProps {
   setFiltersObj: React.Dispatch<React.SetStateAction<Filter>>;
   filtersObj: Filter;
 }
-// interface ExploreProps {
-//   handleDataChange:;
-// }
 
 const ExploreSection: FC<ExploreSectionProps> = ({ setFiltersObj, filtersObj }) => {
   const [searchbar, setSearchbar] = useState<Searchbar>({
@@ -47,7 +34,7 @@ const ExploreSection: FC<ExploreSectionProps> = ({ setFiltersObj, filtersObj }) 
   const handleDataChange = (updatedFilters: Partial<Filter>) => {
     setFiltersObj((previousFilters) => ({
       ...previousFilters,
-      ...searchbar
+      ...updatedFilters
     }))
   };
 

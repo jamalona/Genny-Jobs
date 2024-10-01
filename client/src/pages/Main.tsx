@@ -28,11 +28,6 @@ function Main() {
     search: '',
   });
 
-  // const handleDataChange = (updatedFilters: Filter) => {
-  //   setFiltersObj(updatedFilters); 
-  // };
-
-
   return (
       <div className="job-container">
         {/* Navbar */}
