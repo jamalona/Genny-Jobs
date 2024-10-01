@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { Filter } from './interfaces';
 
 const API_URL = 'http://localhost:5001/api/jobs';
 
-export const getJobs = (limit = 10, offset = 0 ,filters) => {
+export const getJobs = (limit = 10, offset = 0 ,filters: Filter) => {
   const nonEmptyFilters = Object.fromEntries(
     Object.entries(filters).filter(([value]) => value !== '')
   );
@@ -16,9 +17,9 @@ export const getJobs = (limit = 10, offset = 0 ,filters) => {
     return response.data;
   });
 };
-export const getJobById = (id) => axios.get(`${API_URL}/${id}`);
+export const getJobById = (id: string) => axios.get(`${API_URL}/${id}`);
 
-export const vote = async (job_id, voteType) => {
+export const vote = async (job_id: number, voteType: string) => {
   try {
     await axios.post(`${API_URL}/${job_id}/${voteType}`);
     return true;

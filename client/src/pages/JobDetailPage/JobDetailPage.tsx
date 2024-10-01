@@ -19,7 +19,9 @@ const JobDetailPage = () => {
 
   useEffect(() => {
     // Fetch job details based on the job ID from the URL params
-    getJobById(id).then(response => setJob(response.data));
+    if (id) {
+      getJobById(id).then(response => setJob(response.data));
+    }
     if(job){
       setVoteCount(job.user_trust_index);
     }
@@ -27,7 +29,7 @@ const JobDetailPage = () => {
 
   if (!job) return <div>Loading...</div>;
 
-  const handleUpvote = (job_id: string) => {
+  const handleUpvote = (job_id: number) => {
     if (!hasUpvoted) {
       setVoteCount(voteCount + 1);
       setHasUpvoted(true);
@@ -37,7 +39,7 @@ const JobDetailPage = () => {
     }
   };
 
-  const handleDownvote = (job_id: string) => {
+  const handleDownvote = (job_id: number) => {
     if (!hasDownvoted) {
       setVoteCount(voteCount - 1);
       setHasDownvoted(true);

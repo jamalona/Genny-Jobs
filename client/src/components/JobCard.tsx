@@ -17,7 +17,7 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [hasDownvoted, setHasDownvoted] = useState(false);
 
-  const handleUpvote = (job_id: string) => {
+  const handleUpvote = (job_id: number) => {
     if (!hasUpvoted) {
       setVoteCount(voteCount + 1);
       setHasUpvoted(true);
@@ -27,7 +27,7 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
     }
   };
 
-  const handleDownvote = (job_id: string) => {
+  const handleDownvote = (job_id: number) => {
     if (!hasDownvoted) {
       setVoteCount(voteCount - 1);
       setHasDownvoted(true);
@@ -51,11 +51,11 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
             <div className="elegant-vote-container">
               <div className="vote-info">AI trust <strong>{job?.ai_trust_index || "3.5/5"}</strong></div>
               <div className="vote-controls">
-                <button className="vote-button elegant-upvote" onClick={()=>handleUpvote(job._id)}>
+                <button className="vote-button elegant-upvote" onClick={()=>handleUpvote(job.job_id)}>
                   <span>&#9650;</span>
                 </button>
                 <span className="vote-count">{voteCount}</span>
-                <button className="vote-button elegant-downvote" onClick={()=>handleDownvote(job._id)}>
+                <button className="vote-button elegant-downvote" onClick={()=>handleDownvote(job.job_id)}>
                   <span>&#9660;</span>
                 </button>
               </div>
