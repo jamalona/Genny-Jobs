@@ -10,16 +10,6 @@ interface Searchbar {
   location: string;
 }
 
-// interface Filter {
-//   datePosted: string;
-//   salary: string;
-//   jobType: string;
-//   experienceLevel: string;
-//   workType: string;
-//   location: string;
-//   search: string;
-// }
-
 interface ExploreSectionProps {
   // handleDataChange: (filters: Partial<Filters>) => void; // Accepts a partial update of the Filters object
   setFiltersObj: React.Dispatch<React.SetStateAction<Filter>>;

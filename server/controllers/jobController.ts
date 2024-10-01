@@ -111,7 +111,21 @@ exports.vote = async (req, res) => {
 
 function buildFiltersObject(filters) {
   // Build the filters object dynamically
-  let queryFilters = {};
+  type QueryFilterValue =
+  | { $gte: number }
+  | { $lte: number }
+  | { $regex: string; $options: string }
+  | { $or: Array<{ [title: string]: { $regex: string; $options: string } }> }
+  | boolean
+  | string;
+
+// Define the main type for queryFilters
+interface QueryFilters {
+  [key: string]: QueryFilterValue | QueryFilterValue[] | { $or: Array<{ [key: string]: { $regex: string; $options: string } }> };
+}
+
+// Build the filters object dynamically
+let queryFilters: QueryFilters = {}
 
   // Handle 'datePosted' filter
   if (filters.datePosted) {
