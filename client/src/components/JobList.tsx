@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FC } from 'react';
 import ReactPaginate from 'react-paginate';
 import { getJobs } from '../services/jobService';
 import JobCard from './JobCard';
@@ -14,7 +14,7 @@ const JobList: React.FC<JobListProps> = ({filtersObj}) => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [pageNumber, setPageNumber] = useState(0);
   const limit = 6;
-  const [totalJobs, setTotalJobs] = useState(0); // Store the total number of jobs
+  const [totalJobs, setTotalJobs] = useState<number>(0); // Store the total number of jobs
   
   useEffect(() => {
     const offset = pageNumber * limit; // calculate offset based on page number and limit
@@ -22,7 +22,7 @@ const JobList: React.FC<JobListProps> = ({filtersObj}) => {
       setJobs(response.data);
       setTotalJobs(response.total); // assuming the API returns the total number of jobs in response
     });
-  }, [pageNumber, limit,filtersObj]);
+  }, [pageNumber, limit, filtersObj]);
 
   const handlePageChange = (event: {selected: number}) => {
     setPageNumber(event.selected); // update pageNumber state correctly from ReactPaginate event
