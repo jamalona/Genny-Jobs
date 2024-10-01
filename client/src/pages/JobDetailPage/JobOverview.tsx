@@ -1,8 +1,18 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { Job } from '../../services/interfaces';
 
-export default function JobDetailHeader ({job, handleUpvote, handleDownvote, voteCount, salaryRange}) {
+interface JobOverviewProps {
+  job: Job;
+  handleUpvote: (job_id: string) => void;
+  handleDownvote: (job_id: string) => void;
+  voteCount: number;
+  salaryRange: string;
+}
 
+export default function JobOverview ({job, handleUpvote, handleDownvote, voteCount, salaryRange}: JobOverviewProps) {
+
+  
   return (
     <>
      <h3>Job overview</h3>

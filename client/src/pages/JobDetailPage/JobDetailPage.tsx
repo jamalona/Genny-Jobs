@@ -7,6 +7,7 @@ import { vote} from '../../services/jobService';
 import JobDetailHeader from './JobDetailHeader';
 import JobDescription from './JobDescription';
 import JobOverview from './JobOverview';
+import { Job } from '../../services/interfaces';
 
 const JobDetailPage = () => {
   const [voteCount, setVoteCount] = useState(0);
@@ -14,7 +15,7 @@ const JobDetailPage = () => {
   const [hasDownvoted, setHasDownvoted] = useState(false);
   
   const { id } = useParams();
-  const [job, setJob] = useState(null);
+  const [job, setJob] = useState<Job | null >(null);
 
   useEffect(() => {
     // Fetch job details based on the job ID from the URL params
@@ -26,9 +27,7 @@ const JobDetailPage = () => {
 
   if (!job) return <div>Loading...</div>;
 
-  
-
-  const handleUpvote = (job_id) => {
+  const handleUpvote = (job_id: string) => {
     if (!hasUpvoted) {
       setVoteCount(voteCount + 1);
       setHasUpvoted(true);
@@ -38,7 +37,7 @@ const JobDetailPage = () => {
     }
   };
 
-  const handleDownvote = (job_id) => {
+  const handleDownvote = (job_id: string) => {
     if (!hasDownvoted) {
       setVoteCount(voteCount - 1);
       setHasDownvoted(true);
@@ -80,7 +79,7 @@ const JobDetailPage = () => {
 
 export default JobDetailPage;
 
-function formatJobDescription(description) {
+function formatJobDescription(description: string) {
   // Step 1: Normalize and clean the description
   description = description.replace(/\s+/g, ' ').trim(); // Remove excess whitespace
   description = description.replace(/([a-z])([A-Z])/g, '$1. $2'); // Add missing periods before capitalized words
@@ -101,7 +100,7 @@ function formatJobDescription(description) {
   // Split description into sections based on detected headers
   const sections = description.split(sectionRegex);
 
-  let formattedDescription = {};
+  let formattedDescription: { [key: string]: string } = {};
   let currentSection = 'General Information';
 
   for (let i = 0; i < sections.length; i++) {

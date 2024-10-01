@@ -1,7 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { Job } from '../../services/interfaces';
 
-export default function JobDetailHeader ({job}) {
+interface JobDetailHeaderProps {
+  job: Job;
+}
+
+export default function JobDetailHeader ({job} : JobDetailHeaderProps) {
 
   return (
     <>

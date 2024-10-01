@@ -2,6 +2,7 @@ import React, { ChangeEvent, MouseEvent } from "react";
 import PropTypes from "prop-types";
 import "./ExploreSection.css";
 import { useState } from "react";
+import { Filter } from '../services/interfaces';
 import { FC } from "react";
 
 interface Searchbar {
@@ -9,15 +10,15 @@ interface Searchbar {
   location: string;
 }
 
-interface Filter {
-  datePosted: string;
-  salary: string;
-  jobType: string;
-  experienceLevel: string;
-  workType: string;
-  location: string;
-  search: string;
-}
+// interface Filter {
+//   datePosted: string;
+//   salary: string;
+//   jobType: string;
+//   experienceLevel: string;
+//   workType: string;
+//   location: string;
+//   search: string;
+// }
 
 interface ExploreSectionProps {
   // handleDataChange: (filters: Partial<Filters>) => void; // Accepts a partial update of the Filters object

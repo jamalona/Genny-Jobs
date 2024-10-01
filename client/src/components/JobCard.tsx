@@ -5,16 +5,19 @@ import { Link } from 'react-router-dom';
 import './JobCard.css';
 import { vote} from '../services/jobService';
 import PropTypes from 'prop-types';
+import { Job } from '../services/interfaces';
+
+interface JobCardProps {
+  job: Job;
+}
 
 
-
-
-const JobCard = ({ job }) => {
+const JobCard: React.FC<JobCardProps> = ({ job }) => {
   const [voteCount, setVoteCount] = useState(job?.user_trust_index || 0);
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [hasDownvoted, setHasDownvoted] = useState(false);
 
-  const handleUpvote = (job_id) => {
+  const handleUpvote = (job_id: string) => {
     if (!hasUpvoted) {
       setVoteCount(voteCount + 1);
       setHasUpvoted(true);
@@ -24,7 +27,7 @@ const JobCard = ({ job }) => {
     }
   };
 
-  const handleDownvote = (job_id) => {
+  const handleDownvote = (job_id: string) => {
     if (!hasDownvoted) {
       setVoteCount(voteCount - 1);
       setHasDownvoted(true);
@@ -78,24 +81,5 @@ const JobCard = ({ job }) => {
   )
 
 }
-
-// Job card validation
-
-JobCard.propTypes = {
-  job: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    //company_name: PropTypes.string.isRequired,
-    ai_trust_index: PropTypes.number.isRequired,
-    user_trust_index: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    work_type: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    formatted_experience_level: PropTypes.string,
-    //application_url: PropTypes.string.isRequired,
-  }).isRequired,
-};
-
-
 
 export default JobCard;

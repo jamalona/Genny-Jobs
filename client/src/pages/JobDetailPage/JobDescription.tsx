@@ -1,7 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { Job } from '../../services/interfaces';
 
-export default function JobDetailHeader ({job, desc}) {
+interface JobDescriptionProps {
+  job: Job;
+  desc: string;
+}
+
+const JobDescription: React.FC<JobDescriptionProps> = ({job, desc}) => {
 
   return (
     <>
@@ -16,3 +22,5 @@ export default function JobDetailHeader ({job, desc}) {
     </>
   )
 }
+
+export default JobDescription;

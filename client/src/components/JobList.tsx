@@ -4,32 +4,11 @@ import { getJobs } from '../services/jobService';
 import JobCard from './JobCard';
 import  './JobList.css';
 import PropTypes from 'prop-types';
-
-interface Filter{
-  datePosted: string;
-  salary: string;
-  jobType: string;
-  experienceLevel: string;
-  workType: string;
-  location: string;
-  search: string;
-}
-
-interface Job {
-  _id: string;
-  title: string;
-  ai_trust_index: number;
-  user_trust_index: number;
-  description: string;
-  work_type: string;
-  location: string;
-  formatted_experience_level: string;
-}
+import { Filter, Job } from '../services/interfaces';
 
 interface JobListProps {
   filtersObj: Filter;
 }
-
 
 const JobList: React.FC<JobListProps> = ({filtersObj}) => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -70,17 +49,12 @@ const JobList: React.FC<JobListProps> = ({filtersObj}) => {
           pageRangeDisplayed={5}
           onPageChange={handlePageChange}
           containerClassName={'pagination'}
-          // subContainerClassName={'pages pagination'}
           activeClassName={'active'}
         />
       </div>
     </div>
   );
 };
-
-// JobList.propTypes = {
-//   filtersObj: PropTypes.object.isRequired,
-// };
 
 
 export default JobList;
