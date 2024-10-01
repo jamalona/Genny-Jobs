@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 
 
 
-const JobCard = ({ job })=>{
+const JobCard = ({ job }) => {
   const [voteCount, setVoteCount] = useState(job?.user_trust_index || 0);
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [hasDownvoted, setHasDownvoted] = useState(false);

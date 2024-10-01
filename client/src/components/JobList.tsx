@@ -5,11 +5,34 @@ import JobCard from './JobCard';
 import  './JobList.css';
 import PropTypes from 'prop-types';
 
+interface Filter{
+  datePosted: string;
+  salary: string;
+  jobType: string;
+  experienceLevel: string;
+  workType: string;
+  location: string;
+  search: string;
+}
+
+interface Job {
+  _id: string;
+  title: string;
+  ai_trust_index: number;
+  user_trust_index: number;
+  description: string;
+  work_type: string;
+  location: string;
+  formatted_experience_level: string;
+}
+
+interface JobListProps {
+  filtersObj: Filter;
+}
 
 
-const JobList = ({filtersObj}) => {
-  
-  const [jobs, setJobs] = useState([]);
+const JobList: React.FC<JobListProps> = ({filtersObj}) => {
+  const [jobs, setJobs] = useState<Job[]>([]);
   const [pageNumber, setPageNumber] = useState(0);
   const limit = 6;
   const [totalJobs, setTotalJobs] = useState(0); // Store the total number of jobs
@@ -22,7 +45,7 @@ const JobList = ({filtersObj}) => {
     });
   }, [pageNumber, limit,filtersObj]);
 
-  const handlePageChange = (event) => {
+  const handlePageChange = (event: {selected: number}) => {
     setPageNumber(event.selected); // update pageNumber state correctly from ReactPaginate event
   };
 
@@ -34,7 +57,7 @@ const JobList = ({filtersObj}) => {
       </div>
 
       {jobs.map(job => (
-        <JobCard job={job} key={job.job_id} />
+        <JobCard job={job} key={job._id} />
       ))}
       <div>
         <ReactPaginate
@@ -47,7 +70,7 @@ const JobList = ({filtersObj}) => {
           pageRangeDisplayed={5}
           onPageChange={handlePageChange}
           containerClassName={'pagination'}
-          subContainerClassName={'pages pagination'}
+          // subContainerClassName={'pages pagination'}
           activeClassName={'active'}
         />
       </div>
@@ -55,9 +78,9 @@ const JobList = ({filtersObj}) => {
   );
 };
 
-JobList.propTypes = {
-  filtersObj: PropTypes.object.isRequired,
-};
+// JobList.propTypes = {
+//   filtersObj: PropTypes.object.isRequired,
+// };
 
 
 export default JobList;
