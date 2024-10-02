@@ -2,8 +2,14 @@ const Admin = require('../models/Admin');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+interface LoginRequestBody {
+  username: string;
+  password: string;
+}
 // Login
-exports.login = async (req, res) => {
+exports.login = async (
+  req: Request <LoginRequestBody>,
+  res: Response): Promise<void> => {
   const { username, password } = req.body;
   try {
     const admin = await Admin.findOne({ username });
@@ -14,12 +20,12 @@ exports.login = async (req, res) => {
 
     const token = jwt.sign({ id: admin._id }, 'secret', { expiresIn: '1h' });
     res.json({ token });
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).send(err.message);
   }
 };
 
 // Logout
-exports.logout = (req, res) => {
+exports.logout = (req: Request, res: Response) => {
   res.send('Logout endpoint to clear client-side token');
 };

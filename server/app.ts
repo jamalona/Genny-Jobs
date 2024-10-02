@@ -1,4 +1,5 @@
-const express = require('express');
+import express, { Express } from "express";
+
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -10,6 +11,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json())
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/jobPlatform')
