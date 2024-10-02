@@ -1,25 +1,36 @@
 const Job = require('../models/Job');
+import { Request, Response } from 'express';
+import { QuerySelector } from 'mongoose';
+import { Filter } from '../../client/src/services/interfaces';
 
 // Get all jobs
 
-exports.getAllJobs = async (req, res) => {
+exports.getAllJobs = async (req: Request, res: Response) => {
   try {
     // Convert limit and offset to integers
-    let { limit,offset ,...filters } = req.query;
-    limit = limit || 5;
-    offset = offset || 0;
+    let { limit, offset, ...filters } = req.query;
+    let limitNum = limit || 5;
+    let offsetNum = offset || 0;
 
-    //console.log(filters);
-    let Fixfilters = buildFiltersObject(filters);
-    //console.log(Fixfilters);
+    const newFilters: Filter = {
+      datePosted: filters.datePosted as string,  
+      salary: filters.salary as string,
+      jobType: filters.jobType as string,
+      experienceLevel: filters.experienceLevel as string,
+      workType: filters.workType as string,
+      location: filters.location as string,
+      search: filters.search as string,
+    };
+
+    let Fixfilters = buildFiltersObject(newFilters);
 
     // Fetch the total number of jobs
     const totalJobs = await Job.countDocuments(Fixfilters);
     
     // Fetch the jobs with pagination
     const jobs = await Job.find(Fixfilters)
-      .skip(offset)
-      .limit(limit);
+      .skip(offsetNum)
+      .limit(limitNum);
 
     // Send both the paginated jobs and the total number of jobs    
     res.json({
@@ -27,55 +38,55 @@ exports.getAllJobs = async (req, res) => {
       total: totalJobs, // Provide total jobs for pagination
     });
   } catch (err) {
-    res.status(500).send({ error: err.message });
+    res.status(500).send({err});
   }
 };
 
 // Get job by ID
-exports.getJobById = async (req, res) => {
+exports.getJobById = async (req: Request, res: Response) => {
   try {
     const job = await Job.findById(req.params.id);
     if (!job) return res.status(404).send('Job not found');
     res.json(job);
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send(err);
   }
 };
 
 // Create new job
-exports.createJob = async (req, res) => {
+exports.createJob = async (req: Request, res: Response) => {
   try {
     const job = new Job(req.body);
     await job.save();
     res.status(201).json(job);
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send(err);
   }
 };
 
 // Update job
-exports.updateJob = async (req, res) => {
+exports.updateJob = async (req: Request, res: Response) => {
   try {
     const job = await Job.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!job) return res.status(404).send('Job not found');
     res.json(job);
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send(err);
   }
 };
 
 // Delete job
-exports.deleteJob = async (req, res) => {
+exports.deleteJob = async (req: Request, res: Response) => {
   try {
     const job = await Job.findByIdAndDelete(req.params.id);
     if (!job) return res.status(404).send('Job not found');
     res.json({ message: 'Job deleted successfully' });
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send(err);
   }
 };
 
-exports.vote = async (req, res) => {
+exports.vote = async (req: Request, res: Response) => {
   const jobId = req.params.id;
   const voteType = req.params.voteType; // Assume 'voteType' is either 'upvote' or 'downvote'
 
@@ -103,23 +114,27 @@ exports.vote = async (req, res) => {
     await job.save();
     res.send({ message: `${voteType === 'upvote' ? 'Upvote' : 'Downvote'} successful`, userTrustIndex: job.user_trust_index });
   } catch (error) {
-    return res.status(500).send({ message: 'Failed to update job', error: error.message });
+    return res.status(500).send({ message: 'Failed to update job', error: error });
   }
 };
 
+function buildFiltersObject(filters: Filter) {
+  
+  interface OrObject {
+    title: { $regex: string; $options: string };
+  }
 
+  interface QueryFilters {
+    listed_time?: {$gte: number};
+    normalized_salary?: {$lte?: number, $gte?: number};
+    work_type?: string;
+    formatted_experience_level?: string;
+    remote_allowed?: boolean | string;
+    $or?: OrObject[];
+    location?: { $regex: string; $options: string };
+  }
 
-function buildFiltersObject(filters) {
- 
-let queryFilters: {
-  [key: string]:
-  { $gte: number }
-  | { $lte: number }
-  | { $regex: string; $options: string }
-  | { $or: Array<{ [key: string]: { $regex: string; $options: string } }> }
-  | boolean
-  | string;
-} = {};
+  let queryFilters: QueryFilters = {};
 
   // Handle 'datePosted' filter
   if (filters.datePosted) {

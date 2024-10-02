@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const jobSchema = new mongoose.Schema({
   job_id: { type: Number, required: true, unique: true },       // Unique job ID
