@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const jobRoutes = require('./routes/jobRoutes');
-// const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 
@@ -21,7 +20,6 @@ mongoose.connect('mongodb://localhost:27017/jobPlatform')
 
 // Routes
 app.use('/api/jobs', jobRoutes);
-// app.use('/api/admin', adminRoutes);
 
 // Start server
 const PORT =  5001; //process.env.PORT || 5000;
