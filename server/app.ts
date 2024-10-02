@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 // const express = require('express');
 import express, { Express } from 'express';
-=======
-import express, { Express } from "express";
-
->>>>>>> 43ec9eee28d0fc39b6c5527bdb8bce0c7880ee7e
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
