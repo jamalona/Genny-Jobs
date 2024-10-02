@@ -1,6 +1,7 @@
-// const express = require('express');
+import {Router} from 'express'
 const jobController = require('../controllers/jobController');
-const router = express.Router();
+
+const router = Router();
 
 router.get('/', jobController.getAllJobs);         // GET: List all jobs
 router.get('/:id', jobController.getJobById);      // GET: Job details
