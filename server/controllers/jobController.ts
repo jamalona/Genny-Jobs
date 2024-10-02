@@ -1,8 +1,9 @@
 const Job = require('../models/Job');
+import { Request, Response } from "express";
 
 // Get all jobs
 
-exports.getAllJobs = async (req, res) => {
+exports.getAllJobs = async (req:Request, res:Response) => {
   try {
     // Convert limit and offset to integers
     let { limit,offset ,...filters } = req.query;
@@ -27,55 +28,55 @@ exports.getAllJobs = async (req, res) => {
       total: totalJobs, // Provide total jobs for pagination
     });
   } catch (err) {
-    res.status(500).send({ error: err.message });
+    res.status(500).send({ error: (err as Error).message });
   }
 };
 
 // Get job by ID
-exports.getJobById = async (req, res) => {
+exports.getJobById = async (req:Request, res: Response) => {
   try {
     const job = await Job.findById(req.params.id);
     if (!job) return res.status(404).send('Job not found');
     res.json(job);
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send((err as Error).message);
   }
 };
 
 // Create new job
-exports.createJob = async (req, res) => {
+exports.createJob = async (req:Request, res: Response) => {
   try {
     const job = new Job(req.body);
     await job.save();
     res.status(201).json(job);
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send((err as Error).message);
   }
 };
 
 // Update job
-exports.updateJob = async (req, res) => {
+exports.updateJob = async (req:Request, res: Response) => {
   try {
     const job = await Job.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!job) return res.status(404).send('Job not found');
     res.json(job);
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send((err as Error).message);
   }
 };
 
 // Delete job
-exports.deleteJob = async (req, res) => {
+exports.deleteJob = async (req:Request, res: Response) => {
   try {
     const job = await Job.findByIdAndDelete(req.params.id);
     if (!job) return res.status(404).send('Job not found');
     res.json({ message: 'Job deleted successfully' });
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send((err as Error).message);
   }
 };
 
-exports.vote = async (req, res) => {
+exports.vote = async (req:Request, res: Response) => {
   const jobId = req.params.id;
   const voteType = req.params.voteType; // Assume 'voteType' is either 'upvote' or 'downvote'
 
@@ -103,7 +104,7 @@ exports.vote = async (req, res) => {
     await job.save();
     res.send({ message: `${voteType === 'upvote' ? 'Upvote' : 'Downvote'} successful`, userTrustIndex: job.user_trust_index });
   } catch (error) {
-    return res.status(500).send({ message: 'Failed to update job', error: error.message });
+    return res.status(500).send({ message: 'Failed to update job', error: (error as Error).message });
   }
 };
 
