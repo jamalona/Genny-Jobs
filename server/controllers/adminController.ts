@@ -1,15 +1,14 @@
+import { Request, Response } from "express";
 const Admin = require('../models/Admin');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-interface LoginRequestBody {
+interface LoginRequest {
   username: string;
   password: string;
 }
 // Login
-exports.login = async (
-  req: Request <LoginRequestBody>,
-  res: Response): Promise<void> => {
+export const login = async ( req: Request<{},{}, LoginRequest>, res: Response): Promise<void> => {
   const { username, password } = req.body;
   try {
     const admin = await Admin.findOne({ username });
@@ -20,12 +19,13 @@ exports.login = async (
 
     const token = jwt.sign({ id: admin._id }, 'secret', { expiresIn: '1h' });
     res.json({ token });
-  } catch (err: any) {
-    res.status(500).send(err.message);
+  } catch (err) {
+    res.status(500).send((err as Error).message);
   }
 };
 
 // Logout
-exports.logout = (req: Request, res: Response) => {
+export const logout = (req: Request, res: Response): void => {
   res.send('Logout endpoint to clear client-side token');
 };
+
