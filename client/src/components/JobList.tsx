@@ -1,7 +1,7 @@
 import React, { useEffect, useState, FC } from 'react';
 import ReactPaginate from 'react-paginate';
 import { getJobs } from '../services/jobService';
-import JobCard from './JobCard';
+import JobCard from './JobCard/JobCard';
 import  './JobList.css';
 import PropTypes from 'prop-types';
 import { Filter, Job } from '../services/interfaces';
@@ -10,7 +10,7 @@ interface JobListProps {
   filtersObj: Filter;
 }
 
-const JobList: React.FC<JobListProps> = ({filtersObj}) => {
+export default function JobList ({filtersObj}: JobListProps) {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [pageNumber, setPageNumber] = useState(0);
   const limit = 6;
@@ -56,5 +56,3 @@ const JobList: React.FC<JobListProps> = ({filtersObj}) => {
   );
 };
 
-
-export default JobList;

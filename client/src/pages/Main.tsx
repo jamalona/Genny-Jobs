@@ -3,8 +3,8 @@ import { useState } from 'react';
 import './Main.css'; // Add corresponding CSS for styling
 // import JobListingPage from '../components/JobListingPage';
 
-import Navbar from '../components/Navbar';
-import ExploreSection from '../components/ExploreSection';
+import Navbar from '../components/NavBar/Navbar';
+import ExploreSection from '../components/ExploreSection/ExploreSection';
 import JobList from '../components/JobList';
 
 interface Filter{
