@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 mongoose.connect('mongodb://localhost:27017/jobPlatform')
 .then(() => {
   console.log('Connected to MongoDB');
-}).catch(err => console.error(err));
+}).catch((err: Error) => console.error(err));
 
 // Routes
 app.use('/api/jobs', jobRoutes);
