@@ -9,7 +9,9 @@ const Navbar = () => (
       <li><Link to="/search">Search</Link></li>
       <li><Link to="add_post">Post a job</Link></li>
     </ul>
+    <Link to="/login">
     <button className="login-btn">Log in</button>
+    </Link>
   </nav>
 );
 export default Navbar;

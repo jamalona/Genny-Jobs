@@ -1,0 +1,38 @@
+form{
+  width:40%;
+  margin: 200px auto;
+  background-color: white;
+  padding: 20px 30px;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+.fieldset{
+  border: none;
+}
+
+input{
+  font-size: 22px;
+  padding: 10px 5px;
+  width:100%;
+  margin:10px 0;
+}
+
+label{
+  font-size: 22px;
+  margin:10px 0;
+}
+
+.loginbutton{
+  font-size: 25px;
+  padding: 8px 5px;
+  width:100%;
+  margin:20px 0;
+}
+
+.loginheader{
+  text-align: center;
+  font-size:40px;
+  margin-bottom: 20px;
+}
