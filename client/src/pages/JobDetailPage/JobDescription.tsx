@@ -7,7 +7,7 @@ interface JobDescriptionProps {
   desc: string;
 }
 
-const JobDescription: React.FC<JobDescriptionProps> = ({job, desc}) => {
+export default function JobDescription ({job, desc}: JobDescriptionProps) {
 
   return (
     <>
@@ -22,5 +22,3 @@ const JobDescription: React.FC<JobDescriptionProps> = ({job, desc}) => {
     </>
   )
 }
-
-export default JobDescription;

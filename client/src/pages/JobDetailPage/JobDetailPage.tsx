@@ -9,7 +9,7 @@ import JobDescription from './JobDescription';
 import JobOverview from './JobOverview';
 import { Job } from '../../services/interfaces';
 
-const JobDetailPage = () => {
+export default function JobDetailPage () {
   const [voteCount, setVoteCount] = useState(0);
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [hasDownvoted, setHasDownvoted] = useState(false);
@@ -78,8 +78,6 @@ const JobDetailPage = () => {
     </div>
   );
 };
-
-export default JobDetailPage;
 
 function formatJobDescription(description: string) {
   // Step 1: Normalize and clean the description
