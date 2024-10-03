@@ -1,6 +1,7 @@
 // const axios = require('axios');
 import { render, screen } from "@testing-library/react";
 import JobCard from './JobCard';
+import { BrowserRouter } from 'react-router-dom';
 
 const mockJob = {
   _id: 'dsfsdfdf345345',
@@ -49,7 +50,9 @@ describe("JobCard component", () => {
     // axios.get.mockResolvedValue({ data: [] });
 
     render(
-      <JobCard job={mockJob} />
+      <BrowserRouter>
+        <JobCard job={mockJob} />
+      </BrowserRouter>
     );
 
     expect(screen.getByText(/Good for you/i)).toBeInTheDocument();

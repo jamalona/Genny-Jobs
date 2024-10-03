@@ -10,30 +10,28 @@ interface JobCardProps {
   job: Job;
 }
 
-
 export default function JobCard ({ job }: JobCardProps) {
   const [voteCount, setVoteCount] = useState(job?.user_trust_index || 0);
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [hasDownvoted, setHasDownvoted] = useState(false);
 
-  console.log(job);
-  const handleUpvote = (job_id: number) => {
+  const handleUpvote = (jobId: string) => {
     if (!hasUpvoted) {
       setVoteCount(voteCount + 1);
       setHasUpvoted(true);
       setHasDownvoted(false);
       // API call to update the vote count on the server
-      vote(job_id, 'upvote');
+      vote(jobId, 'upvote');
     }
   };
 
-  const handleDownvote = (job_id: number) => {
+  const handleDownvote = (jobId: string) => {
     if (!hasDownvoted) {
       setVoteCount(voteCount - 1);
       setHasDownvoted(true);
       setHasUpvoted(false);
       // API call to update the vote count on the server
-      vote(job_id, 'downvote');
+      vote(jobId, 'downvote');
     }
   };
 
@@ -51,11 +49,11 @@ export default function JobCard ({ job }: JobCardProps) {
             <div className="elegant-vote-container">
               <div className="vote-info">AI trust <strong>{job?.ai_trust_index || "3.5/5"}</strong></div>
               <div className="vote-controls">
-                <button className="vote-button elegant-upvote" onClick={()=>handleUpvote(job.job_id)}>
+                <button className="vote-button elegant-upvote" onClick={()=>handleUpvote(job._id)}>
                   <span>&#9650;</span>
                 </button>
                 <span className="vote-count">{voteCount}</span>
-                <button className="vote-button elegant-downvote" onClick={()=>handleDownvote(job.job_id)}>
+                <button className="vote-button elegant-downvote" onClick={()=>handleDownvote(job._id)}>
                   <span>&#9660;</span>
                 </button>
               </div>

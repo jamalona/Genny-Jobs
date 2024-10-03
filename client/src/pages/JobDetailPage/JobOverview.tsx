@@ -4,8 +4,8 @@ import { Job } from '../../services/interfaces';
 
 interface JobOverviewProps {
   job: Job;
-  handleUpvote: (job_id: number) => void;
-  handleDownvote: (job_id: number) => void;
+  handleUpvote: (jobId: string) => void;
+  handleDownvote: (jobId: string) => void;
   voteCount: number;
   salaryRange: string;
 }
@@ -22,11 +22,11 @@ export default function JobOverview ({job, handleUpvote, handleDownvote, voteCou
                     <div className="elegant-vote-container">
                       <div className="vote-info">AI trust <strong>{job?.ai_trust_index || "3.5/5"}</strong></div>
                       <div className="vote-controls">
-                        <button className="vote-button elegant-upvote" onClick={()=>handleUpvote(job.job_id)}>
+                        <button className="vote-button elegant-upvote" onClick={()=>handleUpvote(job._id)}>
                           <span>&#9650;</span>
                         </button>
                         <span className="vote-count">{voteCount}</span>
-                        <button className="vote-button elegant-downvote" onClick={()=>handleDownvote(job.job_id)}>
+                        <button className="vote-button elegant-downvote" onClick={()=>handleDownvote(job._id)}>
                           <span>&#9660;</span>
                         </button>
                       </div>
