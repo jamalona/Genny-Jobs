@@ -29,23 +29,23 @@ export default function JobDetailPage () {
 
   if (!job) return <div>Loading...</div>;
 
-  const handleUpvote = (job_id: number) => {
+  const handleUpvote = (jobId: string) => {
     if (!hasUpvoted) {
       setVoteCount(voteCount + 1);
       setHasUpvoted(true);
       setHasDownvoted(false);
       // API call to update the vote count on the server
-      vote(job_id, 'upvote');
+      vote(jobId, 'upvote');
     }
   };
 
-  const handleDownvote = (job_id: number) => {
+  const handleDownvote = (jobId: string) => {
     if (!hasDownvoted) {
       setVoteCount(voteCount - 1);
       setHasDownvoted(true);
       setHasUpvoted(false);
       // API call to update the vote count on the server
-      vote(job_id, 'downvote');
+      vote(jobId, 'downvote');
     }
   };
 

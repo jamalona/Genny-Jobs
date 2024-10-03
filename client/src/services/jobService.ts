@@ -19,9 +19,9 @@ export const getJobs = (limit = 10, offset = 0 ,filters: Filter) => {
 };
 export const getJobById = (id: string) => axios.get(`${API_URL}/${id}`);
 
-export const vote = async (job_id: number, voteType: string) => {
+export const vote = async (jobId: string, voteType: string) => {
   try {
-    await axios.post(`${API_URL}/${job_id}/${voteType}`);
+    await axios.post(`${API_URL}/${jobId}/${voteType}`);
     return true;
   } catch (error) {
     console.error(error);

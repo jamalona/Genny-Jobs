@@ -25,9 +25,9 @@ app.use('/api/jobs', jobRoutes);
 // app.use('/api/admin', adminRoutes);
 
 // Start server
-// const PORT =  5001; //process.env.PORT || 5000;
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
+const PORT =  5001; //process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 export default app
