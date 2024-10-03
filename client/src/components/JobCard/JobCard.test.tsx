@@ -1,4 +1,4 @@
-// const axios = require('axios');
+// const axios = require('./mocksAxios');
 import { render, screen } from "@testing-library/react";
 import JobCard from './JobCard';
 import { BrowserRouter } from 'react-router-dom';
@@ -40,22 +40,21 @@ const mockJob = {
   user_trust_index: 0
 }
 
-// jest.mock('axios');
+// jest.mock(axios);
 
 
 describe("JobCard component", () => {
 
   it("Displays the job", () => {
-
     // axios.get.mockResolvedValue({ data: [] });
-
     render(
       <BrowserRouter>
         <JobCard job={mockJob} />
       </BrowserRouter>
     );
-
     expect(screen.getByText(/Good for you/i)).toBeInTheDocument();
+    expect(screen.getByText(/Chief/i)).toBeInTheDocument();
+    expect(screen.getByText(/PART_TIME/i)).toBeInTheDocument();
   });
   
 });
