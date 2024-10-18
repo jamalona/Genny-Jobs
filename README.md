@@ -1,4 +1,4 @@
-# nesar-solo-project
+# Genny Jobs
 
 
 To install dependencies 
