@@ -35,30 +35,24 @@ Genny Jobs is a job review platform that provides insights into workplace enviro
    npm install
 
 ## Usage
-### Running the Frontend
-1. Navigate to the client directory:
-   ```bash
-   cd client
-2. Install the dependencies:
-   ```bash
-   npm install
 
 ### Running the Backend
 1. Navigate to the server directory:
    ```bash
    cd server
 
-2. start the server:
+2. Start the server:
    ```bash
   npm run start
+This will start the server on http://localhost:5001.
+
+### Running the Frontend
+1. Navigate to the client directory:
+   ```bash
+   cd client
+2. Start the frontend :
+   ```bash
+   npm run start
+   This will open the frontend application in your default web browser.
 
 
-To install dependencies 
-go to client folder run npm install
-go to server folder also and run npm install
-
-to run the project 
-go to server folder and enter "npm run start"
-go to client folder and enter "npm run start" 
-
-the client run on localhost:3000 and the api run on localhost:5000
