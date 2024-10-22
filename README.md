@@ -1,5 +1,28 @@
 # Genny Jobs
 
+# Genny Jobs
+
+Genny Jobs is a job review platform that provides insights into workplace environments and experiences across various industries. Users can share and explore reviews, helping others make informed decisions about their career paths. Gain valuable perspectives on job satisfaction, company culture, and more.
+
+## Table of Contents
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Technologies Used
+- **Frontend:** React, Next.js, Tailwind CSS, TypeScript
+- **Backend:** Node.js, Express, MongoDB
+- **Testing:** Jest, SuperTest
+
+## Installation
+
+### For the Frontend
+1. Navigate to the client directory:
+   ```bash
+   cd client
+
 
 To install dependencies 
 go to client folder run npm install
