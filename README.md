@@ -1,7 +1,5 @@
 # Genny Jobs
 
-# Genny Jobs
-
 Genny Jobs is a job review platform that provides insights into workplace environments and experiences across various industries. Users can share and explore reviews, helping others make informed decisions about their career paths. Gain valuable perspectives on job satisfaction, company culture, and more.
 
 ## Table of Contents
