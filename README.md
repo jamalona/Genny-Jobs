@@ -22,6 +22,35 @@ Genny Jobs is a job review platform that provides insights into workplace enviro
 1. Navigate to the client directory:
    ```bash
    cd client
+2. Install the dependencies:
+   ```bash
+   npm install
+
+### For the Backend
+1. Navigate to the server directory:
+   ```bash
+   cd ../server
+2. Install the dependencies:
+   ```bash
+   npm install
+
+## Usage
+### Running the Frontend
+1. Navigate to the client directory:
+   ```bash
+   cd client
+2. Install the dependencies:
+   ```bash
+   npm install
+
+### Running the Backend
+1. Navigate to the server directory:
+   ```bash
+   cd server
+
+2. start the server:
+   ```bash
+  npm run start
 
 
 To install dependencies 
