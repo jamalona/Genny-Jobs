@@ -42,6 +42,7 @@ Genny Jobs is a job review platform that provides insights into workplace enviro
 2. Start the server:
    ```bash
   npm run start
+  
 This will start the server on http://localhost:5001.
 
 ### Running the Frontend
@@ -51,6 +52,7 @@ This will start the server on http://localhost:5001.
 2. Start the frontend :
    ```bash
    npm run start
+   
    This will open the frontend application in your default web browser.
 
 
