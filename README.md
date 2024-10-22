@@ -10,7 +10,7 @@ Genny Jobs is a job review platform that provides insights into workplace enviro
 - [License](#license)
 
 ## Technologies Used
-- **Frontend:** React, Next.js, Tailwind CSS, TypeScript
+- **Frontend:** React, CSS, TypeScript
 - **Backend:** Node.js, Express, MongoDB
 - **Testing:** Jest, SuperTest
 
